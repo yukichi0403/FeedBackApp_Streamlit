@@ -5,7 +5,8 @@ import streamlit as st
 import pandas as pd
 from .components import (
     clean_text,
-    split_text_by_newline
+    split_text_by_newline,
+    clean_filename
 )
 
 #各セクションごとの関数
@@ -103,9 +104,13 @@ def display_other_info(df, selected_record):
     st.markdown('</div>', unsafe_allow_html=True)
 
 
-#実行する関数
 def display_sales_summary(df, selected_record):
     st.markdown('<p class="main-header">商談サマリー</p>', unsafe_allow_html=True)
+    
+    # 商談名の表示
+    filename = clean_filename(df.loc[selected_record, 'file_name'])
+    st.markdown(f'<p class="sub-header" style="color: #666; font-size: 16px; margin-top: -10px;">{filename}</p>', 
+               unsafe_allow_html=True)
     
     # 商談概要セクション
     st.markdown('<p class="sub-header">商談概要</p>', unsafe_allow_html=True)
@@ -120,6 +125,7 @@ def display_sales_summary(df, selected_record):
         display_summary_section(df.loc[selected_record, field], label)
     st.markdown('</div>', unsafe_allow_html=True)
     
+    # 以下は既存のコードと同じ
     # 良かった点と改善点
     st.markdown('<p class="sub-header">良かった点と改善点</p>', unsafe_allow_html=True)
     cols = st.columns(2)    

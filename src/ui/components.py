@@ -12,14 +12,48 @@ def clean_text(text):
     """辞書型や余分な記号を除去してテキストを整形"""
     if pd.isna(text):
         return ""
-    if isinstance(text, str):
-        if text.startswith("{0:"):
-            text = text.split("'")[1] if "'" in text else text.split(":")[1]
-        text = text.replace("{", "").replace("}", "").replace("[", "").replace("]", "")
-        return text.strip()
-    elif isinstance(text, dict):
-        text = text[0]
-    return str(text)
+    
+    # 文字列型への変換
+    text = str(text)
+    
+    # (0, 'text') 形式の文字列から不要な部分を削除
+    if text.startswith("(0,"):
+        text = text.split("'")[1] if "'" in text else text.split(",", 1)[1]
+    
+    # 余分な記号を削除
+    text = text.replace("{", "").replace("}", "").replace("[", "").replace("]", "")
+    text = text.replace("(", "").replace(")", "").replace("'", "")
+    
+    # 先頭の数字とカンマを削除 (例: "0, " を削除)
+    text = text.lstrip("0123456789, ")
+    
+    return text.strip()
+
+def clean_filename(filename):
+    """ファイル名から不要な部分を削除"""
+    if pd.isna(filename):
+        return ""
+    
+    # 文字列に変換
+    filename = str(filename)
+    
+    # 拡張子を削除
+    filename = filename.split('.')[0]
+    
+    # "【確定】" を削除
+    filename = filename.replace("【確定】", "")
+    
+    # "-会議の録音" を削除
+    filename = filename.replace("-会議の録音", "")
+    
+    # 日時部分を整形（オプション）
+    if "_202" in filename:  # 2024年などの年を含む部分を検出
+        filename_parts = filename.split("_")
+        main_part = "_".join(filename_parts[:-1])  # 日時部分以外
+        # date_part = filename_parts[-1][:8]  # YYYYMMDD部分を取得
+        return main_part
+    
+    return filename.strip()
 
 def split_points(text, max_points=5):
     """テキストを個別のポイントに分割"""
