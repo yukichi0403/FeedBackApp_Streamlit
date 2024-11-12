@@ -8,6 +8,7 @@ from .components import (
     split_text_by_newline,
     clean_filename
 )
+import pyperclip
 
 #各セクションごとの関数
 def display_summary_section(text, label):
@@ -18,6 +19,28 @@ def display_summary_section(text, label):
             <div class="summary-content">{clean_text(text)}</div>
         </div>
     """, unsafe_allow_html=True)
+
+def display_kintone_copy_section(text: str):
+    """Kintoneコピー用テキストセクションの表示（スタイル適用版）"""
+    # テキストとコピーボタンを含むコンテナ
+    with st.container():
+        col1, col2 = st.columns([10, 1])
+        
+        with col1:
+            # スタイル適用済みのテキストエリア
+            st.markdown(f"""
+                <div class="kintone-copy-text">
+                    {clean_text(text)}
+                </div>
+            """, unsafe_allow_html=True)
+        
+        with col2:
+            # コピーボタンを上寄せで配置
+            st.markdown('<div style="margin-top: 12px;">', unsafe_allow_html=True)
+            if st.button("📋", key="copy_kintone_text", help="クリックでコピー"):
+                pyperclip.copy(clean_text(text))
+                st.toast("コピーしました！", icon="✅")
+            st.markdown('</div>', unsafe_allow_html=True)
 
 def display_point_details(points, point_type="positive"):
     """ポイントの詳細表示"""
@@ -123,6 +146,13 @@ def display_sales_summary(df, selected_record):
         ("成功確率", "success_probability")
     ]:  
         display_summary_section(df.loc[selected_record, field], label)
+    
+    # Kintoneコピー用テキストセクション
+    st.markdown('<div class="summary-section">', unsafe_allow_html=True)
+    st.markdown('<p class="section-header">Kintoneコピー用テキスト</p>', unsafe_allow_html=True)
+    display_kintone_copy_section(df.loc[selected_record, 'summary_for_kintone'])
+    st.markdown('</div>', unsafe_allow_html=True)
+    
     st.markdown('</div>', unsafe_allow_html=True)
     
     # 以下は既存のコードと同じ

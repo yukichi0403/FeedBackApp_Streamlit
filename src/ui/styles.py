@@ -35,6 +35,19 @@ CUSTOM_CSS="""
         padding-bottom: 10px;
         border-bottom: 2px solid #f0f0f0;
     }
+
+    /* コピー用テキストエリアのスタイル更新 */
+    .kintone-copy-text {
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 12px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+        margin: 5px 0;
+        color: #333;
+    }
     
     /* 概要セクションのスタイル */
     .summary-section {

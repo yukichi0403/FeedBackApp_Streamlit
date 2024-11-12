@@ -23,7 +23,7 @@ class FeedbackDataProvider(DataProvider):
         df = self.connection.execute_query(query)
         
         # データ型を明示的に指定
-        string_columns = ['main_points', "overall_progress", "success_probability", "positive_aspects", "areas_for_improvement", "expected_arr", 
+        string_columns = ['main_points', 'summary_for_kintone', "overall_progress", "success_probability", "positive_aspects", "areas_for_improvement", "expected_arr", 
                           "customer_tasks", "customer_issues_discussed", "roi_explanation", "differentiation_explained", "cross_department_expansion_discussed",
                           "notable_item", "trial_start", "contract_start", "next_meeting"]  # 文字列として扱うカラムのリスト
         for col in string_columns:
