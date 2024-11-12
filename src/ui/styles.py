@@ -154,5 +154,4 @@ CUSTOM_CSS="""
 
 def apply_custom_css():
     """カスタムCSSをアプリケーションに適用"""
-    import streamlit as st
     st.markdown(CUSTOM_CSS, unsafe_allow_html=True)

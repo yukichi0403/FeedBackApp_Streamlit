@@ -9,6 +9,7 @@ from .components import (
     clean_filename
 )
 import pyperclip
+import json
 
 #各セクションごとの関数
 def display_summary_section(text, label):
@@ -34,13 +35,13 @@ def display_kintone_copy_section(text: str):
                 </div>
             """, unsafe_allow_html=True)
         
-        with col2:
-            # コピーボタンを上寄せで配置
-            st.markdown('<div style="margin-top: 12px;">', unsafe_allow_html=True)
-            if st.button("📋", key="copy_kintone_text", help="クリックでコピー"):
-                pyperclip.copy(clean_text(text))
-                st.toast("コピーしました！", icon="✅")
-            st.markdown('</div>', unsafe_allow_html=True)
+        # with col2:
+        #     # コピーボタンを上寄せで配置
+        #     st.markdown('<div style="margin-top: 12px;">', unsafe_allow_html=True)
+        #     if st.button("📋", key="copy_kintone_text", help="クリックでコピー"):
+        #         pyperclip.copy(clean_text(text))
+        #         st.toast("コピーしました！", icon="✅")
+        #     st.markdown('</div>', unsafe_allow_html=True)
 
 def display_point_details(points, point_type="positive"):
     """ポイントの詳細表示"""
