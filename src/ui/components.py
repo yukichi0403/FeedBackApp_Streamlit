@@ -1,10 +1,9 @@
 """
 再利用可能なUIコンポーネント
 """
-import streamlit as st
-from typing import List, Tuple
-import pandas as pd
 
+import pandas as pd
+import re
 
 
 ##共通の関数
@@ -24,8 +23,8 @@ def clean_text(text):
     text = text.replace("{", "").replace("}", "").replace("[", "").replace("]", "")
     text = text.replace("(", "").replace(")", "").replace("'", "")
     
-    # 先頭の数字とカンマを削除 (例: "0, " を削除)
-    text = text.lstrip("0123456789, ")
+    # 先頭のインデックスとカンマを削除 (例: "0:" や "1," を削除)
+    text = re.sub(r'^\d+[:, ]+"?', '', text)
     
     return text.strip()
 
