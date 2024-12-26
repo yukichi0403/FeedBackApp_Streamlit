@@ -80,15 +80,15 @@ def display_date_section(df, selected_record):
     <div class="grid-container">
         <div class="info-card">
             <div class="label">トライアル開始日</div>
-            <div class="value">{clean_text(df.loc[selected_record, 'trial_start'])}</div>
+            <div class="value">{df.loc[selected_record, 'trial_start']}</div>
         </div>
         <div class="info-card">
             <div class="label">契約開始日</div>
-            <div class="value">{clean_text(df.loc[selected_record, 'contract_start'])}</div>
+            <div class="value">{df.loc[selected_record, 'contract_start']}</div>
         </div>
         <div class="info-card">
             <div class="label">次回ミーティング</div>
-            <div class="value">{clean_text(df.loc[selected_record, 'next_meeting'])}</div>
+            <div class="value">{df.loc[selected_record, 'next_meeting']}</div>
         </div>
     </div>
     """
